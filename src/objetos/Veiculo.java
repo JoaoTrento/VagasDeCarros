@@ -5,10 +5,12 @@ public class Veiculo {
 	private String placa;
 	private String modelo;
 	private String tamanho;
+	private Vaga vaga;
 	private int horaDaEntrada;
 	private int minutoDaEntrada;
 	private int horaDaSaida;
 	private int minutoDaSaida;
+	
 	public String getPlaca() {
 		return placa;
 	}
@@ -26,6 +28,12 @@ public class Veiculo {
 	}
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
+	}
+	public Vaga getVaga() {
+		return vaga;
+	}
+	public void setVaga(Vaga vaga) {
+		this.vaga = vaga;
 	}
 	public int getHoraDaEntrada() {
 		return horaDaEntrada;
@@ -51,12 +59,14 @@ public class Veiculo {
 	public void setMinutoDaSaida(int minutoDaSaida) {
 		this.minutoDaSaida = minutoDaSaida;
 	}
-	public Veiculo(String placa, String modelo, String tamanho, int horaDaEntrada, int minutoDaEntrada, int horaDaSaida,
-			int minutoDaSaida) {
+	
+	public Veiculo(String placa, String modelo, String tamanho, Vaga vaga, int horaDaEntrada, int minutoDaEntrada,
+			int horaDaSaida, int minutoDaSaida) {
 		super();
 		this.placa = placa;
 		this.modelo = modelo;
 		this.tamanho = tamanho;
+		this.vaga = vaga;
 		this.horaDaEntrada = horaDaEntrada;
 		this.minutoDaEntrada = minutoDaEntrada;
 		this.horaDaSaida = horaDaSaida;
@@ -65,12 +75,14 @@ public class Veiculo {
 	public Veiculo() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
-		return "Veiculo [placa=" + placa + ", modelo=" + modelo + ", tamanho=" + tamanho + ", horaDaEntrada="
-				+ horaDaEntrada + ":" + minutoDaEntrada + ", horaDaSaida=" + horaDaSaida
-				+ ":" + minutoDaSaida + "]";
+		return "Veiculo [placa=" + placa + ", modelo=" + modelo + ", tamanho=" + tamanho + ", vaga=" + vaga
+				+ ", horaDaEntrada=" + horaDaEntrada + ", minutoDaEntrada=" + minutoDaEntrada + ", horaDaSaida="
+				+ horaDaSaida + ", minutoDaSaida=" + minutoDaSaida + "]";
 	}
+	
 	
 	
 	
