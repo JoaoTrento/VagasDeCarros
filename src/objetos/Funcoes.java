@@ -13,14 +13,14 @@ public class Funcoes {
 	
 	public static void cadastrarVaga() {
 		
-		numeroVaga++;
+		numeroVaga++; // numero da vaga definido automaticamente, diminui a chance do usuario fazer merda
 		System.out.println("VAGA " + numeroVaga);
 		
 		String tamanho = "";
 		Boolean menu=true;
 		while(menu)
 		{
-			System.out.println("Qual o tamanho da vaga? \n[1] pequena \n[2] media \n[3] grande \nsua escolha: ");
+			System.out.println("Qual o tamanho da vaga? \n[1] pequena \n[2] media \n[3] grande \nsua escolha: "); // usuario entra apenas com o numero assim não tem que ficar tratando uma string (se ta escrito certo, com letras minusculas ou maiusculas...)
 			int esc = scan.nextInt();
 			
 			if(esc==1)
@@ -155,7 +155,7 @@ public class Funcoes {
 			{
 				tamanho = "p";
 				for (Vaga vaga : listaDeVagas) {
-					if(vaga.getDisponivel())
+					if(vaga.getDisponivel()) // teste se tem vaga disponivel
 					{
 						vagaDisponivel = true;
 					}
@@ -166,7 +166,7 @@ public class Funcoes {
 			{
 				tamanho = "m";
 				for (Vaga vaga : listaDeVagas) {
-					if(vaga.getDisponivel() && (vaga.getTamanho().equals("m") || vaga.getTamanho().equals("g")))
+					if(vaga.getDisponivel() && (vaga.getTamanho().equals("m") || vaga.getTamanho().equals("g"))) // teste se tem vaga media ou grande disponivel
 					{
 						vagaDisponivel = true;
 					}
@@ -177,7 +177,7 @@ public class Funcoes {
 			{
 				tamanho = "g";
 				for (Vaga vaga : listaDeVagas) {
-					if(vaga.getDisponivel() && vaga.getTamanho().equals("g"))
+					if(vaga.getDisponivel() && vaga.getTamanho().equals("g")) // teste se tem vaga grande disponivel
 					{
 						vagaDisponivel = true;
 					}
@@ -211,6 +211,8 @@ public class Funcoes {
 						if(vaga.getNumero()==numeroVaga)
 						{
 							vagaCadastro=vaga;
+							vaga.setDisponivel(false); // a vaga fica ocupada apos ser selecionada
+							menu=false;
 						}
 					}
 					
@@ -228,6 +230,8 @@ public class Funcoes {
 						if(vaga.getNumero()==numeroVaga)
 						{
 							vagaCadastro=vaga;
+							vaga.setDisponivel(false); // a vaga fica ocupada apos ser selecionada
+							menu=false;
 						}
 					}
 					
@@ -244,6 +248,8 @@ public class Funcoes {
 						if(vaga.getNumero()==numeroVaga)
 						{
 							vagaCadastro=vaga;
+							vaga.setDisponivel(false); // a vaga fica ocupada apos ser selecionada
+							menu=false;
 						}
 					}
 					
@@ -257,14 +263,58 @@ public class Funcoes {
 			String placa = scan.next();
 			
 			System.out.println("Insira a hora da chegada (24h)(hh mm):");
-			int horaDaEntrada = scan.nextInt();
-			int minutosDaEntrada = scan.nextInt();
+		    int horaDaEntrada = scan.nextInt();
+		    int minutosDaEntrada = scan.nextInt();
+		    
+		    System.out.println("Insira a hora da saída (24h)(hh mm):");
+		    int horaDaSaida = scan.nextInt();
+		    int minutosDaSaida = scan.nextInt();
+		    
+		    int horasTotais = 0;
+		    int minutosTotais = 0;
+		    
+		    if (horaDaEntrada <= horaDaSaida)
+		    {
+		        horasTotais = horaDaSaida - horaDaEntrada;
+		        minutosTotais = minutosDaSaida - minutosDaEntrada;
+		        
+		        if (minutosTotais < 0) 
+		        {
+		            minutosTotais += 60;
+		            horasTotais--;
+		        }
+		    } 
+		    else 
+		    {
+		        horaDaSaida += 24; 
+		        
+		        horasTotais = horaDaSaida - horaDaEntrada;
+		        minutosTotais = minutosDaSaida - minutosDaEntrada;
+		        
+		        if (minutosTotais < 0)
+		        {
+		            minutosTotais += 60;
+		            horasTotais--;
+		        }
+		    }
+		    
+		    System.out.println("Tempo total: " + horasTotais + " horas e " + minutosTotais + " minutos.");
 			
-			System.out.println("Insira a hora da saida (24h)(hh mm):");
-			int horaDaSaida = scan.nextInt();
-			int minutosDaSaida = scan.nextInt();
+			double totalPagar = 0;
+			if(horasTotais<=1) // calculo preço tempo estacionado
+			{
+				totalPagar = 5;
+			}
+			else if(horasTotais>3)
+			{
+				totalPagar = 15;
+			}
+			else
+			{
+				totalPagar = 10;
+			}
 			
-			Veiculo veiculo = new Veiculo(placa, modelo, tamanho, vagaCadastro, horaDaEntrada, minutosDaEntrada, horaDaSaida, minutosDaSaida);
+			Veiculo veiculo = new Veiculo(placa, modelo, tamanho, vagaCadastro, horaDaEntrada, minutosDaEntrada, horaDaSaida, minutosDaSaida, horasTotais, minutosTotais, totalPagar);
 			listaDeVeiculos.add(veiculo);
 
 		}
@@ -279,5 +329,18 @@ public class Funcoes {
 		}
 		
 	}
+	
+	public void exibirValores() { // relatorio financeiro
+		
+		double total = 0;
+		for (Veiculo veiculo : listaDeVeiculos)
+		{
+			System.out.println("Veiculo: " + veiculo.getModelo() + ", placa: " + veiculo.getPlaca() + ", tempo: " + veiculo.getHorasTotais() + ":" + veiculo.getMinutosTotais() + ", valor: R$" + veiculo.getValorPagar());
+			total+=veiculo.getValorPagar();
+		}
+		System.out.println("Total: R$" + total + "\n");
+		
+	}
+
 
 }

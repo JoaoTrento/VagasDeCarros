@@ -10,6 +10,9 @@ public class Veiculo {
 	private int minutoDaEntrada;
 	private int horaDaSaida;
 	private int minutoDaSaida;
+	private int horasTotais;
+	private int minutosTotais;
+	private double valorPagar;
 	
 	public String getPlaca() {
 		return placa;
@@ -59,9 +62,27 @@ public class Veiculo {
 	public void setMinutoDaSaida(int minutoDaSaida) {
 		this.minutoDaSaida = minutoDaSaida;
 	}
+	public int getHorasTotais() {
+		return horasTotais;
+	}
+	public void setHorasTotais(int horasTotais) {
+		this.horasTotais = horasTotais;
+	}
+	public int getMinutosTotais() {
+		return minutosTotais;
+	}
+	public void setMinutosTotais(int minutosTotais) {
+		this.minutosTotais = minutosTotais;
+	}
+	public double getValorPagar() {
+		return valorPagar;
+	}
+	public void setValorPagar(double valorPagar) {
+		this.valorPagar = valorPagar;
+	}
 	
 	public Veiculo(String placa, String modelo, String tamanho, Vaga vaga, int horaDaEntrada, int minutoDaEntrada,
-			int horaDaSaida, int minutoDaSaida) {
+			int horaDaSaida, int minutoDaSaida, int horasTotais, int minutosTotais, double valorPagar) {
 		super();
 		this.placa = placa;
 		this.modelo = modelo;
@@ -71,6 +92,9 @@ public class Veiculo {
 		this.minutoDaEntrada = minutoDaEntrada;
 		this.horaDaSaida = horaDaSaida;
 		this.minutoDaSaida = minutoDaSaida;
+		this.horasTotais = horasTotais;
+		this.minutosTotais = minutosTotais;
+		this.valorPagar = valorPagar;
 	}
 	public Veiculo() {
 		super();
@@ -78,10 +102,15 @@ public class Veiculo {
 	
 	@Override
 	public String toString() {
-		return "Veiculo [placa=" + placa + ", modelo=" + modelo + ", tamanho=" + tamanho + ", vaga=" + vaga
-				+ ", horaDaEntrada=" + horaDaEntrada + ", minutoDaEntrada=" + minutoDaEntrada + ", horaDaSaida="
-				+ horaDaSaida + ", minutoDaSaida=" + minutoDaSaida + "]";
+		return "Veiculo [Placa=" + placa + ", Modelo=" + modelo + ", Tamanho=" + tamanho + ", Vaga=" + vaga.getNumero()
+				+ ", Hora Da Entrada=" + horaDaEntrada + ":" + minutoDaEntrada + ", Hora Da Saida="
+				+ horaDaSaida + ":" + minutoDaSaida + ", Tempo Estacionado=" + horasTotais + ":"
+				+ minutosTotais + ", Valor Pagar=" + valorPagar + "]";
 	}
+	
+	
+	
+	
 	
 	
 	
