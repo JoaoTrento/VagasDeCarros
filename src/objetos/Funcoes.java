@@ -305,7 +305,7 @@ public class Funcoes {
 			{
 				totalPagar = 5;
 			}
-			else if(horasTotais>3)
+			else if(horasTotais>=3)
 			{
 				totalPagar = 15;
 			}
