@@ -301,7 +301,7 @@ public class Funcoes {
 		    System.out.println("Tempo total: " + horasTotais + " horas e " + minutosTotais + " minutos.");
 			
 			double totalPagar = 0;
-			if(horasTotais<=1) // calculo preço tempo estacionado
+			if(horasTotais < 1 || (horasTotais == 1 && minutosTotais == 0)) // calculo preço tempo estacionado
 			{
 				totalPagar = 5;
 			}
